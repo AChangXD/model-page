@@ -2,6 +2,7 @@
 import * as React from 'react';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DownloadIcon from '@mui/icons-material/Download';
 import theme from './ThemeRegistry/theme';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -38,6 +39,8 @@ export default function ModelCard({
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: grey[50],
+        borderRadius: 2,
+        padding: 2,
         '&:hover': {
           backgroundColor: grey[100],
           cursor: 'pointer',
@@ -55,19 +58,37 @@ export default function ModelCard({
         {heading}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-        >
-          {category}
+        <Typography color="text.secondary">{category}</Typography>
+        &#xB7;
+        <Typography color="text.secondary">
+          Uploaded {timeLeft.days} days ago
         </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
+        &#xB7;
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 1,
+            alignItems: 'center',
+          }}
         >
-          Uploaded {timeLeft.days} ago
-        </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
+          <DownloadIcon sx={{ color: 'text.secondary', fontSize: '120%' }} />
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
+            {downloads}
+          </Typography>
+        </Box>
+        &#xB7;
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 1,
+            alignItems: 'center',
+          }}
+        >
           <FavoriteBorderIcon
             sx={{ color: 'text.secondary', fontSize: '120%' }}
           />

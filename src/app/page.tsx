@@ -26,19 +26,21 @@ export default async function HomePage() {
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
       <ModelHeader numberOfModels={255555} />
-
-      {/* List of models */}
-      {modelData.map((model: ModelData) => {
-        return (
-          <ModelCard
-            heading={model.name}
-            category={model.category}
-            uploadDate={model.uploadDate}
-            downloads={model.downloads}
-            likes={model.likes}
-          />
-        );
-      })}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {/* List of models */}
+        {modelData.map((model: ModelData, index: number) => {
+          return (
+            <ModelCard
+              heading={model.name}
+              category={model.category}
+              uploadDate={model.uploadDate}
+              downloads={model.downloads}
+              likes={model.likes}
+              key={index + 'modelCard'}
+            />
+          );
+        })}
+      </Box>
     </Box>
   );
 }

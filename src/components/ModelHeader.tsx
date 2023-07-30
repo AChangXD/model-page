@@ -63,8 +63,15 @@ export default function ModelHeader({
             setFilterMode(e.target.value);
           }}
         >
-          {FILTER_OPTIONS.map((option) => {
-            return <MenuItem value={option}>{option}</MenuItem>;
+          {FILTER_OPTIONS.map((option: string, index: number) => {
+            return (
+              <MenuItem
+                value={option}
+                key={index + 'option'}
+              >
+                {option}
+              </MenuItem>
+            );
           })}
         </Select>
       </Box>
