@@ -1,10 +1,11 @@
 'use client';
 import ModelHeader from './ModelHeader';
 import ModelCard from './ModelCard';
-import { Box } from '@mui/material';
+import { Box, Theme, useMediaQuery } from '@mui/material';
 import { ModelData } from '@/app/api/types';
 import { useEffect, useState } from 'react';
 import { findBestMatch } from 'string-similarity';
+import CategoryFilter, { LEFT_FILTER_WIDTH } from './CategoryFilter';
 
 export const SORT_OPTIONS = ['Ascending', 'Descending', 'Likes'];
 
@@ -13,6 +14,14 @@ export default function ModelOverview({
 }: {
   modelData: ModelData[];
 }) {
+  // Used to determine whether the category filter should be in permanent mode or not
+  const leftFilterPermanentMode = useMediaQuery(
+    (theme: Theme) => theme.breakpoints.up('lg'),
+    {
+      defaultMatches: true,
+      noSsr: false,
+    }
+  );
   /* -------------------------------------------------------------------------- */
   /*                                   States                                   */
   /* -------------------------------------------------------------------------- */
@@ -36,20 +45,36 @@ export default function ModelOverview({
     }, [] as string[])
   );
   const [selectedCategory, setSelectedCategory] = useState('');
+  // Whether to display the filter Drawer or not:
+  const [displayFilterDrawer, setDisplayFilterDrawer] = useState(false);
 
   /* -------------------------------------------------------------------------- */
   /*                                   Effects                                  */
   /* -------------------------------------------------------------------------- */
   /* ------------------- Effect to filter the existing data ------------------- */
   useEffect(() => {
-    // 1. If searchInput is empty, set filteredModelData to modelData.
+    // 1. If certain categories are selected, filter through them:
+    let categoryFilteredResult: ModelData[] = [];
+    if (selectedCategory) {
+      categoryFilteredResult = modelData.reduce((accumulator, model) => {
+        if (model.category === selectedCategory) {
+          return [...accumulator, model];
+        } else {
+          return accumulator;
+        }
+      }, [] as ModelData[]);
+    } else {
+      categoryFilteredResult = modelData;
+    }
+
+    // 1. If searchInput is empty, set filteredModelData to categoryFilteredResult.
     if (searchInput === '') {
-      setFilteredModelData(modelData);
+      setFilteredModelData(categoryFilteredResult);
     }
     // 2. Filter based on text input:
     else {
       let filteredResults: ModelData[] = [];
-      const modelNames = modelData.map((model) => {
+      const modelNames = categoryFilteredResult.map((model) => {
         return model.name;
       });
       // Use string similarity to sort:
@@ -64,7 +89,7 @@ export default function ModelOverview({
 
       sortedRatings.forEach((result) => {
         if (result.rating > 0.3) {
-          const match = modelData.find((model) => {
+          const match = categoryFilteredResult.find((model) => {
             return model.name === result.target;
           });
 
@@ -76,6 +101,7 @@ export default function ModelOverview({
 
       setFilteredModelData(filteredResults);
     }
+
     // Set the categories in case modelData changes:
     // !TEMPORARY
     // !Change this so this doesn't run everytime searchInput changes.
@@ -90,10 +116,11 @@ export default function ModelOverview({
         }
       }, [] as string[])
     );
-  }, [searchInput, modelData]);
+  }, [searchInput, selectedCategory, modelData]);
 
   /* -------------------- Effect to sort the existing data -------------------- */
   useEffect(() => {
+    //
     let filteredModelDataCopy = JSON.parse(JSON.stringify(filteredModelData));
     if (sortMode === 'Ascending') {
       const ascOrder = filteredModelDataCopy.sort(
@@ -127,38 +154,55 @@ export default function ModelOverview({
       );
     }
   }, [sortMode, filteredModelData]);
-  console.log('RERENDER');
-  console.log(sortedFilteredModelData);
 
   /* -------------------------------------------------------------------------- */
   /*                                 JSX Return                                 */
   /* -------------------------------------------------------------------------- */
   return (
-    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <ModelHeader
-        numberOfModels={modelData.length}
-        sortMode={sortMode}
-        setSortMode={setSortMode}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+      <CategoryFilter
+        permanentMode={leftFilterPermanentMode}
+        categories={categories}
+        displayFilterDrawer={displayFilterDrawer}
+        setDisplayFilterDrawer={setDisplayFilterDrawer}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {/* List of models */}
-        {sortedFilteredModelData.map((model: ModelData) => {
-          console.log(model);
-
-          return (
-            <ModelCard
-              heading={model.name}
-              category={model.category}
-              uploadDate={model.uploadDate}
-              downloads={model.downloads}
-              likes={model.likes}
-              key={model.name}
-            />
-          );
-        })}
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          paddingLeft: leftFilterPermanentMode ? LEFT_FILTER_WIDTH + 'px' : 0,
+          flexDirection: 'column',
+        }}
+      >
+        {/* Header */}
+        <ModelHeader
+          numberOfModels={modelData.length}
+          sortMode={sortMode}
+          setSortMode={setSortMode}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+          leftFilterPermanentMode={leftFilterPermanentMode}
+          setDisplayFilterDrawer={setDisplayFilterDrawer}
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {/* List of models */}
+          {sortedFilteredModelData.map((model: ModelData) => {
+            return (
+              <ModelCard
+                heading={model.name}
+                category={model.category}
+                description={model.description}
+                version={model.version}
+                uploadDate={model.uploadDate}
+                downloads={model.downloads}
+                likes={model.likes}
+                key={model.name}
+              />
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );

@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import {
   Box,
   Button,
+  IconButton,
+  InputAdornment,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -11,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import SortIcon from '@mui/icons-material/Sort';
+import ClearIcon from '@mui/icons-material/Clear';
 import { SORT_OPTIONS } from './ModelOverview';
 
 export default function ModelHeader({
@@ -19,12 +22,16 @@ export default function ModelHeader({
   setSortMode,
   searchInput,
   setSearchInput,
+  leftFilterPermanentMode,
+  setDisplayFilterDrawer,
 }: {
   numberOfModels: number;
   sortMode: string;
-  setSortMode: (mode: string) => void;
+  setSortMode: React.Dispatch<SetStateAction<string>>;
   searchInput: string;
-  setSearchInput: (mode: string) => void;
+  setSearchInput: React.Dispatch<SetStateAction<string>>;
+  leftFilterPermanentMode: boolean;
+  setDisplayFilterDrawer: React.Dispatch<SetStateAction<boolean>>;
 }) {
   /* -------------------------------------------------------------------------- */
   /*                                   States                                   */
@@ -74,8 +81,24 @@ export default function ModelHeader({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setSearchInput(e.target.value);
         }}
+        sx={{ minWidth: { xs: 0, md: 500 } }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              {searchInput !== '' && (
+                <IconButton
+                  onClick={() => {
+                    setSearchInput('');
+                  }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              )}
+            </InputAdornment>
+          ),
+        }}
       ></TextField>
-      <Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
         <Select
           value={sortMode}
           onChange={(e: SelectChangeEvent) => {
@@ -96,6 +119,16 @@ export default function ModelHeader({
           })}
         </Select>
       </Box>
+      {!leftFilterPermanentMode && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setDisplayFilterDrawer(true);
+          }}
+        >
+          Show Filters
+        </Button>
+      )}
     </Box>
   );
 }

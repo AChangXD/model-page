@@ -2,6 +2,8 @@
   {
     "name": "model1",
     "category": "Feature Extraction",
+    "description": "Test model for feature extraction.",
+    "version": "2.3.5",
     "uploadDate": "2023-07-28T16:53:04.469Z",
     "downloads": 3000,
     "likes": 250
@@ -9,6 +11,8 @@
   {
     "name": "stable-diffusion",
     "category": "Text-to-Image",
+    "description": "Stable diffusion model description.",
+    "version": "0.3.2",
     "uploadDate": "2023-07-25T16:53:04.469Z",
     "downloads": 4000,
     "likes": 2500

@@ -12,12 +12,16 @@ import { breakdownTime } from './helper/time-helper';
 export default function ModelCard({
   heading,
   category,
+  description,
+  version,
   uploadDate,
   downloads,
   likes,
 }: {
   heading: string;
   category: string;
+  description: string;
+  version: string;
   uploadDate: Date | string;
   downloads: number;
   likes: number;
@@ -58,6 +62,20 @@ export default function ModelCard({
       >
         {heading}
       </Typography>
+      <Typography
+        color="text.secondary"
+        sx={{ mb: 1 }}
+      >
+        {description}
+      </Typography>
+
+      <Typography
+        color="text.secondary"
+        sx={{ display: { xs: 'block', md: 'none' }, mb: { xs: 1, md: 0 } }}
+      >
+        Version: {version}
+      </Typography>
+
       <Box
         sx={{
           display: 'flex',
@@ -119,6 +137,13 @@ export default function ModelCard({
             {likes}
           </Typography>
         </Box>
+
+        <Typography
+          color="text.secondary"
+          sx={{ display: { xs: 'none', md: 'block' } }}
+        >
+          Version: {version}
+        </Typography>
       </Box>
     </Box>
   );
