@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import SortIcon from '@mui/icons-material/Sort';
 import { SORT_OPTIONS } from './ModelOverview';
 
 export default function ModelHeader({
@@ -81,12 +82,13 @@ export default function ModelHeader({
             setSortMode(e.target.value);
           }}
           sx={{ width: '100%' }}
+          startAdornment={<SortIcon />}
         >
-          {SORT_OPTIONS.map((option: string, index: number) => {
+          {SORT_OPTIONS.map((option: string) => {
             return (
               <MenuItem
                 value={option}
-                key={index + 'option'}
+                key={'option' + option}
               >
                 {option}
               </MenuItem>

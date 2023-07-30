@@ -5,7 +5,13 @@ import { headers } from 'next/headers';
 import { ModelData } from './api/types';
 import ModelOverview from '@/components/ModelOverview';
 
+/**
+ * RSC where the data is fetched.
+ */
 export default async function HomePage() {
+  /* -------------------------------------------------------------------------- */
+  /*                               RSC Fetch Data                               */
+  /* -------------------------------------------------------------------------- */
   // Fetch all model information on the server:
   const headersData = headers();
   const protocol = headersData.get('x-forwarded-proto');
@@ -17,6 +23,10 @@ export default async function HomePage() {
   const resBody = await res.json();
 
   const modelData = resBody.data;
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 JSX Return                                 */
+  /* -------------------------------------------------------------------------- */
 
   return <ModelOverview modelData={modelData} />;
 }

@@ -16,12 +16,26 @@ export default function ModelOverview({
   /* -------------------------------------------------------------------------- */
   /*                                   States                                   */
   /* -------------------------------------------------------------------------- */
-  const [sortMode, setSortMode] = useState<string>(SORT_OPTIONS[0]);
+  /* ---------------------------- Filtering by name --------------------------- */
   const [searchInput, setSearchInput] = useState<string>('');
   const [filteredModelData, setFilteredModelData] = useState<ModelData[]>([]);
+  /* --------------------------------- Sorting -------------------------------- */
+  // Sort by Ascending/Descending/Likes
+  const [sortMode, setSortMode] = useState<string>(SORT_OPTIONS[0]);
   const [sortedFilteredModelData, setSortedFilteredModelData] = useState<
     ModelData[]
   >([]);
+  // Sorting by categories.
+  const [categories, setCategories] = useState(
+    modelData.reduce((accumulator: string[], currentValue: ModelData) => {
+      if (accumulator.find((category) => category === currentValue.category)) {
+        return accumulator;
+      } else {
+        return [currentValue.category, ...accumulator];
+      }
+    }, [] as string[])
+  );
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   /* -------------------------------------------------------------------------- */
   /*                                   Effects                                  */
@@ -62,6 +76,20 @@ export default function ModelOverview({
 
       setFilteredModelData(filteredResults);
     }
+    // Set the categories in case modelData changes:
+    // !TEMPORARY
+    // !Change this so this doesn't run everytime searchInput changes.
+    setCategories(
+      modelData.reduce((accumulator: string[], currentValue: ModelData) => {
+        if (
+          accumulator.find((category) => category === currentValue.category)
+        ) {
+          return accumulator;
+        } else {
+          return [currentValue.category, ...accumulator];
+        }
+      }, [] as string[])
+    );
   }, [searchInput, modelData]);
 
   /* -------------------- Effect to sort the existing data -------------------- */
