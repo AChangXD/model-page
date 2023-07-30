@@ -12,9 +12,27 @@
     "name": "stable-diffusion",
     "category": "Text-to-Image",
     "description": "Stable diffusion model description.",
-    "version": "0.3.2",
+    "version": "4.3.2",
     "uploadDate": "2023-07-25T16:53:04.469Z",
     "downloads": 4000,
     "likes": 2500
+  },
+  {
+    "name": "sss-mobilenet",
+    "category": "Object Detection",
+    "description": "Single Shot Detector + Mobilenet for object detection",
+    "version": "0.6.4",
+    "uploadDate": "2023-07-29T16:53:04.469Z",
+    "downloads": 3000,
+    "likes": 400
+  },
+  {
+    "name": "sam",
+    "category": "Object Detection",
+    "description": "Segment Anything Model, can be used to generate training datasets",
+    "version": "1.3.2",
+    "uploadDate": "2023-07-21T16:53:04.469Z",
+    "downloads": 3000,
+    "likes": 400
   }
 ]

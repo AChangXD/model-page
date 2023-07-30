@@ -1,10 +1,8 @@
-# Material UI - Next.js App Router example in TypeScript
+## This project was started using the NextJS App Router + MUI v5 Template
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with Material UI installed.
+## https://github.com/mui/material-ui/tree/master/examples/material-next-app-router-ts`
 
-## How to use
-
-Download the example [or clone the repo](https://github.com/mui/material-ui):
+##
 
 <!-- #default-branch-switch -->
 

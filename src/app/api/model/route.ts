@@ -3,7 +3,7 @@ import { ModelData } from '../types';
 import { headers } from 'next/headers';
 import initialData from '../data.json';
 
-export let data: ModelData[] = initialData;
+let data: ModelData[] = initialData;
 
 // Fetching all existing models:
 // !Not paginated.
@@ -33,7 +33,6 @@ export async function POST(request: Request) {
   const file = formData.get('file') as File | null;
   const modelName = formData.get('modelName') as string;
   const fileName = formData.get('name') as string;
-  console.log(file);
 
   if (!file || !fileName) {
     return NextResponse.json(
@@ -41,18 +40,12 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-  // const buffer = Buffer.from(await file.arrayBuffer());
-  // console.log(buffer);
 
   // 3. Add new model data and return updated results:
   const modelIndex = data.findIndex((model) => model.name === modelName);
 
   if (modelIndex !== undefined) {
-    console.log(data[modelIndex].files);
-
     if (data[modelIndex].files) {
-      console.log('Existing');
-
       data[modelIndex].files = [
         // @ts-ignore
         ...data[modelIndex].files,
