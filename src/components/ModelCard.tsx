@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DownloadIcon from '@mui/icons-material/Download';
+import CategoryIcon from '@mui/icons-material/Category';
 import theme from './ThemeRegistry/theme';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -57,13 +58,32 @@ export default function ModelCard({
       >
         {heading}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-        <Typography color="text.secondary">{category}</Typography>
-        &#xB7;
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 2,
+          overflow: 'auto',
+          width: '100%',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 1,
+            alignItems: 'center',
+          }}
+        >
+          <CategoryIcon sx={{ color: 'text.secondary', fontSize: '120%' }} />
+
+          <Typography color="text.secondary">{category}</Typography>
+        </Box>
+
         <Typography color="text.secondary">
           Uploaded {timeLeft.days} days ago
         </Typography>
-        &#xB7;
+
         <Box
           sx={{
             display: 'flex',
@@ -80,7 +100,7 @@ export default function ModelCard({
             {downloads}
           </Typography>
         </Box>
-        &#xB7;
+
         <Box
           sx={{
             display: 'flex',

@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
-      <ModelHeader numberOfModels={255555} />
+      <ModelHeader numberOfModels={modelData.length} />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {/* List of models */}
         {modelData.map((model: ModelData, index: number) => {

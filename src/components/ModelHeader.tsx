@@ -31,8 +31,9 @@ export default function ModelHeader({
       sx={{
         width: '100%',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-between',
+        gap: 2,
         mt: 1,
         mb: 2,
       }}
@@ -52,16 +53,22 @@ export default function ModelHeader({
         >
           Models
         </Typography>
-        <Typography variant="h6">{numberOfModels}</Typography>
-        {/* TODO: Switch to Autocomplete after backend is setup: */}
-        <TextField></TextField>
+        <Typography
+          variant="h6"
+          color={'text.secondary'}
+        >
+          {numberOfModels}
+        </Typography>
       </Box>
+      {/* Filter the list of available cards: */}
+      <TextField placeholder="Filter By Name"></TextField>
       <Box>
         <Select
           value={filterMode}
           onChange={(e: SelectChangeEvent) => {
             setFilterMode(e.target.value);
           }}
+          sx={{ width: '100%' }}
         >
           {FILTER_OPTIONS.map((option: string, index: number) => {
             return (
