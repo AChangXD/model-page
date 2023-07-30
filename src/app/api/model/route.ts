@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { ModelData } from '../types';
 import { headers } from 'next/headers';
+import initialData from '../data.json';
 
-let data: ModelData[] = [];
+let data: ModelData[] = initialData;
 
 // Fetching all existing models:
 // !Not paginated.

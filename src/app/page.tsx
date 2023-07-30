@@ -7,6 +7,7 @@ import ModelCard from '@/components/ModelCard';
 import AddButton from '@/components/SearchBar';
 import { headers } from 'next/headers';
 import ModelHeader from '@/components/ModelHeader';
+import { ModelData } from './api/types';
 
 export default async function HomePage() {
   // Fetch all model information on the server:
@@ -19,7 +20,7 @@ export default async function HomePage() {
   });
   const resBody = await res.json();
 
-  console.log(resBody.data);
+  const modelData = resBody.data;
 
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -27,11 +28,17 @@ export default async function HomePage() {
       <ModelHeader numberOfModels={255555} />
 
       {/* List of models */}
-
-      <ModelCard
-        heading="test"
-        text="abcd"
-      />
+      {modelData.map((model: ModelData) => {
+        return (
+          <ModelCard
+            heading={model.name}
+            category={model.category}
+            uploadDate={model.uploadDate}
+            downloads={model.downloads}
+            likes={model.likes}
+          />
+        );
+      })}
     </Box>
   );
 }
