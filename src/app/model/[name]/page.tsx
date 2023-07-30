@@ -1,9 +1,10 @@
 import { ModelData } from '@/app/api/types';
 import ModelCard from '@/components/ModelCard';
-import { Box, Typography } from '@mui/material';
+import ModelDetails from '@/components/ModelDetails';
+import { Box, Tabs, Typography } from '@mui/material';
 import { headers } from 'next/headers';
 
-export default async function ModelDetails({
+export default async function ModelView({
   params,
 }: {
   params: { name: string };
@@ -45,6 +46,7 @@ export default async function ModelDetails({
         likes={model.likes}
         key={model.name}
       />
+      <ModelDetails model={model} />
     </Box>
   );
 }

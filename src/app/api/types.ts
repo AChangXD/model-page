@@ -6,5 +6,12 @@ export type ModelData = {
   uploadDate: Date | string;
   downloads: number;
   likes: number;
-  file?: File;
+  files?: ModelFile[];
+};
+
+export type ModelFile = {
+  name: string;
+  file: File;
+  uploadDate: Date | string;
+  version: string;
 };
