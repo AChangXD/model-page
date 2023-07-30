@@ -9,19 +9,25 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
-
-const FILTER_OPTIONS = ['Ascending', 'Descending', 'Likes'];
+import React, { useState } from 'react';
+import { SORT_OPTIONS } from './ModelOverview';
 
 export default function ModelHeader({
   numberOfModels,
+  sortMode,
+  setSortMode,
+  searchInput,
+  setSearchInput,
 }: {
   numberOfModels: number;
+  sortMode: string;
+  setSortMode: (mode: string) => void;
+  searchInput: string;
+  setSearchInput: (mode: string) => void;
 }) {
   /* -------------------------------------------------------------------------- */
   /*                                   States                                   */
   /* -------------------------------------------------------------------------- */
-  const [filterMode, setFilterMode] = useState(FILTER_OPTIONS[0]);
 
   /* -------------------------------------------------------------------------- */
   /*                                 JSX Return                                 */
@@ -61,16 +67,22 @@ export default function ModelHeader({
         </Typography>
       </Box>
       {/* Filter the list of available cards: */}
-      <TextField placeholder="Filter By Name"></TextField>
+      <TextField
+        placeholder="Filter By Name"
+        value={searchInput}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setSearchInput(e.target.value);
+        }}
+      ></TextField>
       <Box>
         <Select
-          value={filterMode}
+          value={sortMode}
           onChange={(e: SelectChangeEvent) => {
-            setFilterMode(e.target.value);
+            setSortMode(e.target.value);
           }}
           sx={{ width: '100%' }}
         >
-          {FILTER_OPTIONS.map((option: string, index: number) => {
+          {SORT_OPTIONS.map((option: string, index: number) => {
             return (
               <MenuItem
                 value={option}
