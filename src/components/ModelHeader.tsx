@@ -16,6 +16,11 @@ import SortIcon from '@mui/icons-material/Sort';
 import ClearIcon from '@mui/icons-material/Clear';
 import { SORT_OPTIONS } from './ModelOverview';
 
+/**
+ * @author Mark Chang
+ * @description React Client Component. Contains input components for filtering/sorting.
+ */
+
 export default function ModelHeader({
   numberOfModels,
   sortMode,
@@ -33,10 +38,6 @@ export default function ModelHeader({
   leftFilterPermanentMode: boolean;
   setDisplayFilterDrawer: React.Dispatch<SetStateAction<boolean>>;
 }) {
-  /* -------------------------------------------------------------------------- */
-  /*                                   States                                   */
-  /* -------------------------------------------------------------------------- */
-
   /* -------------------------------------------------------------------------- */
   /*                                 JSX Return                                 */
   /* -------------------------------------------------------------------------- */

@@ -4,6 +4,11 @@ import ModelDetails from '@/components/ModelDetails';
 import { Box, Tabs, Typography } from '@mui/material';
 import { headers } from 'next/headers';
 
+/**
+ * @author Mark Chang
+ * @description React Server Component, responsible for displaying information on all of the models.
+ */
+
 export default async function ModelView({
   params,
 }: {

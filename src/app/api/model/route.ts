@@ -3,10 +3,11 @@ import { ModelData } from '../types';
 import { headers } from 'next/headers';
 import initialData from '../data.json';
 
+// NOTE: The name of the models was used as a unique ID.
 let data: ModelData[] = initialData;
 
-// Fetching all existing models:
-// !Not paginated.
+// Fetching all existing models or a specific model:
+// !Not paginate due to the small # of models, should paginate this for prod.
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
@@ -23,8 +24,7 @@ export async function GET(request: Request) {
   }
 }
 
-// Adding new models:
-// !Body will not be parsed if content type is not application/json.
+// Adding new files:
 export async function POST(request: Request) {
   const headersList = headers();
   const contentType = headersList.get('Content-Type');

@@ -12,6 +12,11 @@ import theme from './ThemeRegistry/theme';
 
 export const SORT_OPTIONS = ['Ascending', 'Descending', 'Likes'];
 
+/**
+ * @author Mark Chang
+ * @description React Client Component, responsible for tracking information for sorting/filtering/etc
+ */
+
 export default function ModelOverview({
   modelData,
 }: {

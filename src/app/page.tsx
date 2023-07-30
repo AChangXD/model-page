@@ -6,7 +6,8 @@ import { ModelData } from './api/types';
 import ModelOverview from '@/components/ModelOverview';
 
 /**
- * RSC where the data is fetched.
+ * @author Mark Chang
+ * @description React Server Component. Model data is fetched on server side.
  */
 export default async function HomePage() {
   /* -------------------------------------------------------------------------- */

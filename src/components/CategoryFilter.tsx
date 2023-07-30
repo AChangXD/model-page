@@ -15,6 +15,11 @@ import { findBestMatch } from 'string-similarity';
 
 export const LEFT_FILTER_WIDTH = 500;
 
+/**
+ * @author Mark Chang
+ * @description React Client Component. Contains the filter for different model categories.
+ */
+
 export default function CategoryFilter({
   permanentMode,
   categories,

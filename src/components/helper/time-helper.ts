@@ -1,3 +1,8 @@
+/**
+ * @author Mark Chang
+ * @description Helper function for computing when a model was uploaded.
+ */
+
 export const breakdownTime = (timeInMilliSeconds: number) => {
   // Convert to days: 1000 * 60 * 60 * 24 = 86400000
   const days = timeInMilliSeconds / 86400000;

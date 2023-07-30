@@ -1,4 +1,3 @@
-'use client';
 import * as React from 'react';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -9,6 +8,11 @@ import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { breakdownTime } from './helper/time-helper';
 import { useRouter } from 'next/navigation';
+
+/**
+ * @author Mark Chang
+ * @description React Server Component. Displays all the information regarding a model.
+ */
 
 export default function ModelCard({
   name,

@@ -16,6 +16,11 @@ import React, { useState } from 'react';
 
 const TAB_OPTIONS = ['Files'];
 
+/**
+ * @author Mark Chang
+ * @description Section of the details page for file uploading.
+ */
+
 export default function ModelDetails({ model }: { model: ModelData }) {
   /* -------------------------------------------------------------------------- */
   /*                                NextJS Router                               */
