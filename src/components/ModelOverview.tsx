@@ -6,6 +6,9 @@ import { ModelData } from '@/app/api/types';
 import { useEffect, useState } from 'react';
 import { findBestMatch } from 'string-similarity';
 import CategoryFilter, { LEFT_FILTER_WIDTH } from './CategoryFilter';
+import { useRouter } from 'next/navigation';
+import { grey } from '@mui/material/colors';
+import theme from './ThemeRegistry/theme';
 
 export const SORT_OPTIONS = ['Ascending', 'Descending', 'Likes'];
 
@@ -22,6 +25,12 @@ export default function ModelOverview({
       noSsr: false,
     }
   );
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Routing                                  */
+  /* -------------------------------------------------------------------------- */
+  const nextRouter = useRouter();
+
   /* -------------------------------------------------------------------------- */
   /*                                   States                                   */
   /* -------------------------------------------------------------------------- */
@@ -190,16 +199,33 @@ export default function ModelOverview({
           {/* List of models */}
           {sortedFilteredModelData.map((model: ModelData) => {
             return (
-              <ModelCard
-                heading={model.name}
-                category={model.category}
-                description={model.description}
-                version={model.version}
-                uploadDate={model.uploadDate}
-                downloads={model.downloads}
-                likes={model.likes}
-                key={model.name}
-              />
+              <Box
+                onClick={() => {
+                  nextRouter.push(`/model/${model.name}`);
+                }}
+                sx={{
+                  backgroundColor: grey[100],
+                  borderRadius: 3,
+                  '&:hover': {
+                    backgroundColor: grey[200],
+                    cursor: 'pointer',
+                    '& .name': {
+                      color: theme.palette.primary.light,
+                    },
+                  },
+                }}
+              >
+                <ModelCard
+                  name={model.name}
+                  category={model.category}
+                  description={model.description}
+                  version={model.version}
+                  uploadDate={model.uploadDate}
+                  downloads={model.downloads}
+                  likes={model.likes}
+                  key={model.name}
+                />
+              </Box>
             );
           })}
         </Box>

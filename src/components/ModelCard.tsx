@@ -8,9 +8,10 @@ import theme from './ThemeRegistry/theme';
 import { Box, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { breakdownTime } from './helper/time-helper';
+import { useRouter } from 'next/navigation';
 
 export default function ModelCard({
-  heading,
+  name,
   category,
   description,
   version,
@@ -18,7 +19,7 @@ export default function ModelCard({
   downloads,
   likes,
 }: {
-  heading: string;
+  name: string;
   category: string;
   description: string;
   version: string;
@@ -43,24 +44,15 @@ export default function ModelCard({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: grey[50],
-        borderRadius: 2,
         padding: 2,
-        '&:hover': {
-          backgroundColor: grey[100],
-          cursor: 'pointer',
-          '& .heading': {
-            color: theme.palette.primary.light,
-          },
-        },
       }}
     >
       <Typography
         gutterBottom
         variant="h5"
-        className="heading"
+        className="name"
       >
-        {heading}
+        {name}
       </Typography>
       <Typography
         color="text.secondary"

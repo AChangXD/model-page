@@ -140,7 +140,13 @@ export default function CategoryFilter({
           </Button>
         )}
         <Box
-          sx={{ display: 'flex', flexDirection: 'row', gap: 2, width: '100%' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 2,
+            width: '100%',
+            paddingX: 3,
+          }}
         >
           {filteredCategories.map((category) => {
             return (

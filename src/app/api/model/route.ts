@@ -3,14 +3,24 @@ import { ModelData } from '../types';
 import { headers } from 'next/headers';
 import initialData from '../data.json';
 
-let data: ModelData[] = initialData;
+export let data: ModelData[] = initialData;
 
 // Fetching all existing models:
 // !Not paginated.
 export async function GET(request: Request) {
-  console.log('REquest received');
+  const { searchParams } = new URL(request.url);
 
-  return NextResponse.json({ data });
+  const name = searchParams.get('name');
+
+  if (!name) {
+    return NextResponse.json({ data });
+  } else {
+    return NextResponse.json({
+      model: data.find((model) => {
+        return model.name === name;
+      }),
+    });
+  }
 }
 
 // Adding new models:

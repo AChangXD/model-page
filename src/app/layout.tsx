@@ -21,6 +21,7 @@ import SupportIcon from '@mui/icons-material/Support';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import AddButton from '@/components/SearchBar';
+import { Button } from '@mui/material';
 
 export const metadata = {
   title: 'Next.js App Router + Material UI v5',
@@ -55,17 +56,22 @@ export default function RootLayout({
             sx={{ zIndex: 2000 }}
           >
             <Toolbar sx={{ backgroundColor: 'background.paper' }}>
-              <CelebrationIcon
-                sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }}
-              />
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                color="black"
+              <Button
+                href="/"
+                LinkComponent={Link}
               >
-                Fireworks AI
-              </Typography>
+                <CelebrationIcon
+                  sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }}
+                />
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  color="black"
+                >
+                  Fireworks AI
+                </Typography>
+              </Button>
             </Toolbar>
           </AppBar>
           <Box
