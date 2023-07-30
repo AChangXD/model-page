@@ -66,41 +66,34 @@ export default function ModelOverview({
 
   /* -------------------- Effect to sort the existing data -------------------- */
   useEffect(() => {
+    let filteredModelDataCopy = JSON.parse(JSON.stringify(filteredModelData));
     if (sortMode === 'Ascending') {
-      const ascOrder = filteredModelData.sort((a, b) => {
-        if (a.name > b.name) {
-          return 1;
-        } else {
-          return -1;
+      const ascOrder = filteredModelDataCopy.sort(
+        (a: ModelData, b: ModelData) => {
+          if (a.name > b.name) {
+            return 1;
+          } else {
+            return -1;
+          }
         }
-      });
-      console.log(ascOrder);
+      );
 
       setSortedFilteredModelData(ascOrder);
     } else if (sortMode === 'Descending') {
-      console.log('DESC');
-
-      const descOrder = filteredModelData.sort((a, b) => {
-        if (a.name < b.name) {
-          return 1;
-        } else {
-          return -1;
+      const descOrder = filteredModelDataCopy.sort(
+        (a: ModelData, b: ModelData) => {
+          if (a.name < b.name) {
+            return 1;
+          } else {
+            return -1;
+          }
         }
-      });
-
-      console.log(descOrder);
+      );
 
       setSortedFilteredModelData(descOrder);
     } else {
-      console.log('LIKES');
-      console.log(
-        filteredModelData.sort((a, b) => {
-          return b.likes - a.likes;
-        })
-      );
-
       setSortedFilteredModelData(
-        filteredModelData.sort((a, b) => {
+        filteredModelDataCopy.sort((a: ModelData, b: ModelData) => {
           return b.likes - a.likes;
         })
       );
@@ -124,7 +117,7 @@ export default function ModelOverview({
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {/* List of models */}
-        {sortedFilteredModelData.map((model: ModelData, index: number) => {
+        {sortedFilteredModelData.map((model: ModelData) => {
           console.log(model);
 
           return (
@@ -134,7 +127,7 @@ export default function ModelOverview({
               uploadDate={model.uploadDate}
               downloads={model.downloads}
               likes={model.likes}
-              key={index + 'modelCard' + model.name}
+              key={model.name}
             />
           );
         })}
